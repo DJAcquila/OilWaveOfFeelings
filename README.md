@@ -1,4 +1,4 @@
-# Sentiment-Analyzer
+# Oil Wave of Feelings
 A Sentiment Analyzer for texts using the [Naive-Bayes Classifier](https://en.wikipedia.org/wiki/Naive_Bayes_classifier)
 ## Dependencies
 - ```Python 3.6.8```
