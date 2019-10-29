@@ -25,17 +25,23 @@ class Connect:
 		data['sadness_degree'] = ''
 		data['happiness_degree'] = ''
 		data['msg_log'] = []
+		data['state'] = 0 # Nao alterado
 		with open(self.file_path, 'w+') as file:
 			json.dump(data, file)
 
 	def balance(self, msg_type):
 		self.total += 1
 		if msg_type is Msg.happiness:
-			self.happiness += 1
+			self.happiness += 1 
 			
 		elif msg_type is Msg.sadness:
 			self.sadness += 1
 
+	def toggleState(self, data):
+		if data['state'] == 0:
+			data['state'] = 1 # Alterado
+		else:
+			data['state'] = 1 # Alterado
 
 	def write(self, msg_type, msg):
 		with open(self.file_path, 'r+') as file:
@@ -66,8 +72,8 @@ class Connect:
 				data['happiness_degree'] = self.happiness/self.total
 				data['sadness_degree'] = self.sadness/self.total
 				print("Mensagem inserida no json")
-				
 
+			self.toggleState(data)
 			file.seek(0)
 			json.dump(data, file)
 			file.truncate()
