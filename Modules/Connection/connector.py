@@ -22,13 +22,15 @@ class Connect:
 		data = {}
 		data['last_msg'] = ''
 		data['last_sentiment'] = ''
-		data['sadness_degree'] = ''
-		data['happiness_degree'] = ''
+		data['sadness_degree'] = 0.5
+		data['happiness_degree'] = 0.5
 		data['msg_log'] = []
 		data['state'] = 0 # Nao alterado
 		with open(self.file_path, 'w+') as file:
-			json.dump(data, file)
-
+			f_line = file.read(1)
+			if not f_line:
+				json.dump(data, file)
+	
 	def balance(self, msg_type):
 		self.total += 1
 		if msg_type is Msg.happiness:

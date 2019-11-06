@@ -17,11 +17,13 @@ def main_microphone():
     r = sr.Recognizer()
     c = Connect()
 
-    with sr.Microphone() as source:
-        try:
+   
+    try:
+        with sr.Microphone() as source:
             while True :
-                audio = r.listen(source,timeout=3, phrase_time_limit=3)
                 try:
+                    audio = r.listen(source,timeout=3, phrase_time_limit=3)
+                
                     sentence = r.recognize_google(audio)
                     print('You said: {}'.format(sentence))
                     if sentence.strip().lower() in ['exit', 'quit']:
@@ -52,8 +54,8 @@ def main_microphone():
                  
                 except Exception as e:
                     pass
-        except KeyboardInterrupt:
-            pass       
+    except KeyboardInterrupt:
+        pass       
 
 def main_text():
     a = SetPersistentClassifier()
@@ -89,6 +91,7 @@ def main_text():
                 c.write(Msg.simple_msg, sentence)
             
     except KeyboardInterrupt:
+        c.initData()
         pass       
 
 def SetPersistentClassifier():
