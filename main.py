@@ -108,5 +108,5 @@ def SetPersistentClassifier():
     return a
 
 if __name__ == '__main__':
-    main_microphone()
-    #main_text()
+    #main_microphone()
+    main_text()

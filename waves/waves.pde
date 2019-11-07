@@ -1,3 +1,8 @@
+/*Universidade Federal de Goiás
+ *Tópicos 2 - Programação Criativa
+ *Trabalho 2 - O mar das emoções
+ */
+
 JSONObject json;
 
 int numWaves = 4;
@@ -45,54 +50,34 @@ void draw(){
      fill(humor*60,humor*240,humor*360,map(i,0,numWaves-1,192,32));
      drawSineWave(HALF_PI,velocidade * (i+1),50 + (10 * i), 8, width, k);
    }
-  /* 
-  textSize(40);
-  textAlign(CENTER);
-  fill(0, 102, 153, transpTexto*255);
-  text(palavra, width/2, 90);
-  fill(0, 102, 153, transpTexto*51);
-  text(palavra, width/2, 100); 
-  
-  transpTexto += valorTexto;
-  
-  if(transpTexto >= 1.0 || transpTexto <= 0.0) valorTexto *= -1;*/
 }
-/*
-* radians   - how often does the wave cycle (larges values = more peaks)
-* speed     - how fast is the wave moving
-* amplitude - how high is the wave (from centre point)
-* detail    - how many points are used to draw the wave (small=angled, many = smooth)
-* y         - y centre of the wave
-*/
+
 void drawSineWave(float radians,float speed,float amplitude,int detail,float size,float y){
+  //Para desenhar a onda, utiliza-se um shape
   beginShape();
-  vertex(0,height);//fix to bottom
-  //compute the distance between each point
+  
+  //Fixar a base da onda no 'chão'
+  vertex(0,height);
+  
   float xoffset = size / detail;
-  //compute angle offset between each point
   float angleIncrement = radians / detail;
-  //for each point
+  
+  // para cada ponto, desenhar seguindo a função seno
   for(int i = 0 ; i <= detail; i++){
-    //compute x position
     float px = xoffset * i;
-    //use sine function compute y
-    //millis() * speed is like an ever increasing angle
-    //to which we add the angle increment for each point (so the the angle changes as we traverse x
-    //the result of sine is a value between -1.0 and 1.0 which we multiply to the amplitude (height of the wave)
-    //finally add the y offset
     float py = y + (sin((millis() * speed) + angleIncrement * i) * amplitude);
-    //add the point
     vertex(px,py);
   }
-  vertex(size,height);//fix to bottom
+  vertex(size,height);
   endShape();
 }
 
 void SetJSON(){
   palavra = newPalavra;
 }
+
 void ExplorarJSON(){
-  //Carregando o arquivo jason
+  //Carregando o arquivo jason e extraindo informações
   json = loadJSONObject("../log.json");
   sadness = json.getFloat("sadness_degree");
   println("Leu sadness: ", sadness);
@@ -101,14 +86,7 @@ void ExplorarJSON(){
   palavra = json.getString("last_msg");
   sentiment = json.getString("last_sentiment");
   int s = json.getInt("state");
-  //println("Leu ", s);
   state = s;
-  //println("Valor do state ", state);
-  
-  //if(sadness > hapiness) humor = humor - sadness*humor;
-  //else humor = humor + sadness*humor;
-  
-  
   println("Valor de k", k);
   println("humor ", humor);
   
